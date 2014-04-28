@@ -1,4 +1,4 @@
-package it.mondogrua.lab.contabilita_02;
+package it.mondogrua.lab.accounting;
 
 
 import java.math.BigDecimal;

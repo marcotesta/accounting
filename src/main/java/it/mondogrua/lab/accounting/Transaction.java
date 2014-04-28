@@ -1,4 +1,4 @@
-package it.mondogrua.lab.contabilita_02;
+package it.mondogrua.lab.accounting;
 
 
 public class Transaction {
@@ -19,7 +19,7 @@ public class Transaction {
         return _id.equals(id);
     }
 
-    public void addCostTo(CacheFlow directCosts) {
+    public void addCostTo(CashFlow directCosts) {
 
         directCosts.addTo(_money);
     }

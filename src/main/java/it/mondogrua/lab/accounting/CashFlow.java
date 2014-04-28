@@ -1,4 +1,4 @@
-package it.mondogrua.lab.contabilita_02;
+package it.mondogrua.lab.accounting;
 
 import java.math.BigDecimal;
 
@@ -6,19 +6,23 @@ import java.math.BigDecimal;
  * Represent an amount of money related to a Cost Center.
  * Is mutable
  */
-public class CacheFlow {
+public class CashFlow {
 
     private final CenterId _id;
     private Money _amount;
 
     // Constructor ------------------------------------------------------------
 
-    public CacheFlow(CenterId id) {
+    public CashFlow(CenterId id) {
         _id = id;
         _amount = new Money(new BigDecimal("0"));
     }
 
     // Public Methods ---------------------------------------------------------
+
+    public String id() {
+        return _id.toString();
+    }
 
     public Money amount() {
         return _amount;
