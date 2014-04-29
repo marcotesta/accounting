@@ -24,7 +24,7 @@ public class CashFlow {
         return _id.toString();
     }
 
-    public Money amount() {
+    public Money asMoney() {
         return _amount;
     }
 

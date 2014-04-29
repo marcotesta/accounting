@@ -20,7 +20,6 @@ public class Transaction {
     }
 
     public void addCostTo(CashFlow directCosts) {
-
         directCosts.addTo(_money);
     }
 

@@ -12,32 +12,20 @@ import org.junit.Test;
 
 public class DirectCostsTest {
 
-    class Director {
+    private Builder fBuilder = new Builder();
 
-        private Builder _builder;
 
-        public Director(Builder builder) {
-            _builder = builder;
-        }
-        public void construct() {
-            _builder.createCenter("#pomodoro:books:english");
-            _builder.addTransaction(new BigDecimal("0.50"));
-            _builder.addTransaction(new BigDecimal("0.55"));
-        }
-    }
 
     @Test
-    public void test_DirectCosts() {
-        Builder builder = new Builder();
-        Director director = new Director(builder);
-        director.construct();
-        Center english = builder.getProduct();
-
-        CashFlow directCosts = english.directCosts();
-
+    public void directCostsForCenterWithTwoTransactions() {
         Money expected = new Money(new BigDecimal("1.05"));
 
-        assertEquals(expected, directCosts.amount());
+        fBuilder.createCenter("#pomodoro:books:english");
+        fBuilder.addTransaction(new BigDecimal("0.50"));
+        fBuilder.addTransaction(new BigDecimal("0.55"));
+        Center english = fBuilder.getProduct();
+
+        assertEquals(expected, new Report(english).directCosts().asMoney());
     }
 
 }

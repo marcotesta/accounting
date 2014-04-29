@@ -54,20 +54,30 @@ public class Center {
     }
 
     public CashFlow directCosts() {
-        CashFlow directCosts = new CashFlow(_id);
+        CashFlow result = new CashFlow(_id);
         for (Transaction transaction : _transactions) {
-            transaction.addCostTo(directCosts);
+            transaction.addCostTo(result);
         }
 
-        return directCosts;
+        return result;
     }
 
     public CashFlow branchCosts() {
         CashFlow result = directCosts();
+        // o cosi
+        new SimpleChildIterator(this).addTo(result);
+
+        // o cosi
         for (Center child : _children) {
-            result.addTo(child.branchCosts().amount());
+            result.addTo(child.branchCosts().asMoney());
         }
+
+
         return result;
+    }
+
+    public Collection<Center> getChildren() {
+        return null;
     }
 
 }
