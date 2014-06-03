@@ -1,6 +1,6 @@
 package it.mondogrua.lab.accounting;
 
-public class SimpleChildIterator {
+public class SimpleChildIterator implements InternalIterator {
 
     private Center _center;
 
@@ -8,11 +8,10 @@ public class SimpleChildIterator {
         _center = center;
     }
 
-   // public void execute(Command something)
-    public void addTo(CashFlow aCashFlow) {
-        for (Center center : _center.getChildren()) {
-            aCashFlow.addTo(center.branchCosts().asMoney());
+    @Override
+    public  void traverse(Processor processor) {
+        for (Center child : _center) {
+            processor.process(child, 0);
         }
     }
-
 }

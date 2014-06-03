@@ -1,10 +1,6 @@
 package it.mondogrua.lab.accounting;
 
-import static org.junit.Assert.*;
-import it.mondogrua.lab.accounting.Builder;
-import it.mondogrua.lab.accounting.CashFlow;
-import it.mondogrua.lab.accounting.Center;
-import it.mondogrua.lab.accounting.Money;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 
@@ -13,8 +9,6 @@ import org.junit.Test;
 public class DirectCostsTest {
 
     private Builder fBuilder = new Builder();
-
-
 
     @Test
     public void directCostsForCenterWithTwoTransactions() {

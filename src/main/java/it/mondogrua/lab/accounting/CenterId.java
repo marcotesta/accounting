@@ -9,13 +9,14 @@ public class CenterId {
 
     public  static final String SEPARATOR = ":";
     public  static final String ROOT_NAME = "#";
-    private static final String EMPTY_NAME = "---";
+//    private static final String EMPTY_NAME = "---";
 
     public static final CenterId ROOT =
             new CenterId(new ArrayList<String>(Arrays.asList(new String[]{ROOT_NAME})));
 
-    public static final CenterId EMPTY =
-            new CenterId(new ArrayList<String>(Arrays.asList(new String[]{EMPTY_NAME})));;
+//    public static final CenterId EMPTY =
+//            new CenterId(new ArrayList<String>(Arrays.asList(new String[]{EMPTY_NAME})));
+//    private static final String UNDEFINED = "Undefined";;
 
     // Instance Member Fields --------------------------------------------------
 
@@ -24,7 +25,7 @@ public class CenterId {
     // Constructor ------------------------------------------------------------
 
     public CenterId(List<String> chunks) {
-        if (chunks.size() < 1 || !(chunks.get(0).equals(ROOT_NAME) || chunks.get(0).equals(EMPTY_NAME))) {
+        if (chunks.size() < 1 || !(chunks.get(0).equals(ROOT_NAME))) {
             throw new IllegalArgumentException("Center id should have at least the root node");
         }
         _chunks = Collections.unmodifiableList(new ArrayList<String>(chunks));
@@ -100,5 +101,9 @@ public class CenterId {
         List<String> thatChunks = new ArrayList<String>(_chunks);
         thatChunks.add(chunk);
         return new CenterId(thatChunks);
+    }
+
+    public String name() {
+        return _chunks.get(_chunks.size()-1);
     }
 }

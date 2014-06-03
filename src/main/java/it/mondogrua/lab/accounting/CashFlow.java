@@ -28,7 +28,7 @@ public class CashFlow {
         return _amount;
     }
 
-    public void addTo(Money money) {
+    public void add(Money money) {
         _amount = _amount.add(money);
     }
 

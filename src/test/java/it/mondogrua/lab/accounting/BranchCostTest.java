@@ -10,7 +10,6 @@ public class BranchCostTest {
 
     private Builder builder = new Builder();
 
-
     @Test
     public void branchCostsForCenterWithSubCenters() {
         Money expected = new Money(new BigDecimal("1.05"));

@@ -2,8 +2,9 @@ package it.mondogrua.lab.accounting;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
-public class Center {
+public class Center implements Iterable<Center> {
 
     private final CenterId _id;
 
@@ -62,22 +63,27 @@ public class Center {
         return result;
     }
 
-    public CashFlow branchCosts() {
-        CashFlow result = directCosts();
-        // o cosi
-        new SimpleChildIterator(this).addTo(result);
-
-        // o cosi
-        for (Center child : _children) {
-            result.addTo(child.branchCosts().asMoney());
-        }
-
-
+    public CashFlow childrenCosts() {
+        CashFlow result = new CashFlow(_id);
+        new SimpleChildIterator(this).traverse(new Accumulator(result));
         return result;
     }
 
-    public Collection<Center> getChildren() {
-        return null;
+    public CashFlow branchCosts() {
+        CashFlow result = new CashFlow(_id);
+        new PreorderBranchIterator(this).traverse(new Accumulator(result));
+        return result;
+    }
+
+
+
+    @Override
+    public Iterator<Center> iterator() {
+        return _children.iterator();
+    }
+
+    public String name() {
+        return _id.name();
     }
 
 }

@@ -25,13 +25,13 @@ public class Builder {
     public void addSiblingCenter(String centerIdStr) {
         CenterId centerId = getCenterId(centerIdStr);
         Center center = new Center(centerId);
-        Center parent  = _currentCenter.getParent();
-        parent.add(center);
+        center.setParent(_currentCenter.getParent());
+        _currentCenter.getParent().add(center);
         _currentCenter = center;
     }
 
-    public void addToParent(String centerIdStr) {
-        Center parent = getParent(centerIdStr);
+    public void addToParent(String parentIdStr, String centerIdStr) {
+        Center parent = getParent(parentIdStr);
         if (parent == null) {
             throw new InvalidParameterException();
         }
