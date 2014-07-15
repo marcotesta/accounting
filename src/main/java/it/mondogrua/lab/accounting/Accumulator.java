@@ -10,7 +10,11 @@ public class Accumulator implements Processor {
     }
 
     @Override
-    public void process(Center center, int depth) {
+    public void process(Node<? extends Element> node) {
+    }
+    
+    @Override
+    public void process(Center center) {
         _cashFlow.add(center.directCosts().asMoney());
     }
 

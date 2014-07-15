@@ -2,16 +2,16 @@ package it.mondogrua.lab.accounting;
 
 public class SimpleChildIterator implements InternalIterator {
 
-    private Center _center;
+    private Node<? extends Element> _node;
 
-    public SimpleChildIterator(Center center) {
-        _center = center;
+    public SimpleChildIterator(Node<? extends Element> node) {
+        _node = node;
     }
 
     @Override
     public  void traverse(Processor processor) {
-        for (Center child : _center) {
-            processor.process(child, 0);
+        for (Node<? extends Element> child : _node) {
+        	child.accept(processor);
         }
     }
 }

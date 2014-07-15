@@ -5,56 +5,52 @@ import java.security.InvalidParameterException;
 
 public class Builder {
 
-    private Center _rootCenter = null;
-    private Center _currentCenter = null;
+    private Node<Center> _rootNode = null;
+    private Node<Center> _currentNode = null;
 
     public void createCenter(String centerIdStr) {
-        CenterId centerId = getCenterId(centerIdStr);
-        _rootCenter = new Center(centerId);
-        _currentCenter = _rootCenter;
+        Center center = new Center(getCenterId(centerIdStr));
+		_rootNode = new Node<Center>(center);
+        _currentNode = _rootNode;
     }
 
     public void addChildCenter(String centerIdStr) {
-        CenterId centerId = getCenterId(centerIdStr);
-        Center center = new Center(centerId);
-        center.setParent(_currentCenter);
-        _currentCenter.add(center);
-        _currentCenter = center;
+        Center center = new Center(getCenterId(centerIdStr));
+        Node<Center> node = new Node<Center>(center);
+        _currentNode.add(node);
+        _currentNode = node;
     }
 
     public void addSiblingCenter(String centerIdStr) {
-        CenterId centerId = getCenterId(centerIdStr);
-        Center center = new Center(centerId);
-        center.setParent(_currentCenter.getParent());
-        _currentCenter.getParent().add(center);
-        _currentCenter = center;
+        Center center = new Center(getCenterId(centerIdStr));
+        Node<Center> node = new Node<Center>(center);
+        _currentNode.getParent().add(node);
+        _currentNode = node;
     }
 
     public void addToParent(String parentIdStr, String centerIdStr) {
-        Center parent = getParent(parentIdStr);
+        Node<Center> parent = getParent(parentIdStr);
         if (parent == null) {
             throw new InvalidParameterException();
         }
-        _currentCenter = parent;
+        _currentNode = parent;
         addChildCenter(centerIdStr);
     }
 
-    public void addTransaction(BigDecimal bigDecimal) {
-        String centerIdString = _rootCenter.id();
-        Transaction translation = newTransaction(centerIdString, bigDecimal);
-        _rootCenter.add(translation);
+    public void addTransaction(BigDecimal value) {
+        _rootNode.getElement().addTransaction(value);
     }
 
-    public Center getProduct() {
-        return _rootCenter;
+    public Node<Center> getProduct() {
+        return _rootNode;
     }
 
     // Protected Methods ---------------------------------------------------------
 
-    protected Center getParent(String id) {
-        Center result = _currentCenter;
+    protected Node<Center> getParent(String id) {
+        Node<Center> result = _currentNode;
 
-        while (result!= null && !result.id().equals(id)) {
+        while (result!= null && !result.getElement().id().equals(id)) {
             result = result.getParent();
         }
         return result;
@@ -85,11 +81,6 @@ public class Builder {
         return id;
     }
 
-    private Transaction newTransaction(String centerIdString, BigDecimal value) {
-
-        CenterId id = getCenterId(centerIdString);
-        Money money = new Money(value);
-        return new Transaction(id ,money);
-    }
+    
 
 }

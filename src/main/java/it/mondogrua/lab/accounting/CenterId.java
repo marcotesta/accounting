@@ -9,14 +9,9 @@ public class CenterId {
 
     public  static final String SEPARATOR = ":";
     public  static final String ROOT_NAME = "#";
-//    private static final String EMPTY_NAME = "---";
 
     public static final CenterId ROOT =
             new CenterId(new ArrayList<String>(Arrays.asList(new String[]{ROOT_NAME})));
-
-//    public static final CenterId EMPTY =
-//            new CenterId(new ArrayList<String>(Arrays.asList(new String[]{EMPTY_NAME})));
-//    private static final String UNDEFINED = "Undefined";;
 
     // Instance Member Fields --------------------------------------------------
 

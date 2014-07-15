@@ -1,28 +1,41 @@
 package it.mondogrua.lab.accounting;
 
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class InorderBranchIterator implements InternalIterator {
 
-    private final Center _center;
-    private final int _depth;
+    private final Node<? extends Element> _root;
 
-    public InorderBranchIterator(Center _center) {
+    public InorderBranchIterator(Node<? extends Element> root) {
         super();
-        this._center = _center;
-        this._depth = 0;
-    }
-
-    protected InorderBranchIterator(Center _center, int _depth) {
-        super();
-        this._center = _center;
-        this._depth = _depth;
+        this._root = root;
     }
 
     @Override
     public void traverse(Processor processor) {
-        for (Center child : _center) {
-            new InorderBranchIterator(child, _depth+1).traverse(processor);
+        Queue<Node<? extends Element>> queue  = new LinkedList<Node<? extends Element>>();
+
+        recursiveAdd(queue, _root);
+
+        while(!queue.isEmpty()){
+            Node<? extends Element> node = queue.poll();
+            node.accept(processor);
         }
-        processor.process(_center, _depth);
+    	
     }
+
+	private void recursiveAdd(Queue<Node<? extends Element>> queue, Node<? extends Element> node) {
+		recursiveAdd(queue, node, 0);
+	}
+
+	private void recursiveAdd(Queue<Node<? extends Element>> queue, Node<? extends Element> node, int level) {
+		for (Node<? extends Element> child : node) {
+			recursiveAdd(queue, child, level+1);
+        }
+		queue.add(node);
+	}
 
 }

@@ -2,14 +2,17 @@ package it.mondogrua.lab.accounting;
 
 public class Report {
 
+    private Node<Center> _node;
+    
     private Center _center;
 
-    public Report(Center center) {
-        _center = center;
+    public Report(Node<Center> node) {
+        _node = node;
+        _center = node.getElement();
     }
 
-    public void setCenter(Center center) {
-        _center = center;
+    public void setCenter(Node<Center> node) {
+        _node = node;
     }
 
     public CashFlow directCosts() {
@@ -17,7 +20,15 @@ public class Report {
     }
 
     public CashFlow branchCosts() {
-        return _center.branchCosts();
+        CashFlow result = _center.createCashFlow();
+        new PreorderBranchIterator(_node).traverse(new Accumulator(result));
+        return result;
+    }
+    
+    public CashFlow childrenCosts() {
+        CashFlow result = _center.createCashFlow();
+        new SimpleChildIterator(_node).traverse(new Accumulator(result));
+        return result;
     }
 
 }
